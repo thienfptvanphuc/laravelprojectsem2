@@ -28,11 +28,12 @@
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/daterangepicker/daterangepicker.css">
    <!-- summernote -->
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/summernote/summernote-bs4.min.css">
+   <!-- ck editor -->
+   <script src="{{asset('public')}}/editor/ckeditor/ckeditor.js"></script>
    <!-- DataTables -->
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-   {{-- For page --}}
    @yield('content1')
 </head>
 
@@ -214,17 +215,70 @@
                </div>
             </div>
 
+            {{-- @php
+            echo \Illuminate\Support\Facades\Route::currentRouteName();
+            @endphp --}}
+
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-                  <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-                  {{-- Rentals & Bills Management --}}
-                  {{-- Menu open link active --}}
                   <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-car-side"></i>
+                        <p>
+                           Car Management
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="{{route('be.category')}}" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Categories</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.product')}}" class="nav-link">
+                              <i class="fa fa-plus-circle nav-icon"></i>
+                              <p>Cars</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.rating')}}" class="nav-link">
+                              <i class="fa fa-star nav-icon"></i>
+                              <p>Car Rating</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                           Account Management
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Users</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Moderator</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
+                  <li class="nav-item ">
                      <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
@@ -247,6 +301,56 @@
                         </li>
                      </ul>
                   </li>
+
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>
+                           Feedbacks/Comments
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Comments</p>
+                           </a>
+                        </li>
+
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Feedbacks</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
+                  <li class="nav-item ">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-globe"></i>
+                        <p>
+                           Website
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="" class="nav-link ">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Carousel</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Blogs</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
                </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -260,15 +364,6 @@
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
-                  <div class="col-sm-6">
-                     <h1>Title Page </h1>
-                  </div>
-                  <div class="col-sm-6">
-                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Title Page</li>
-                     </ol>
-                  </div>
                </div>
             </div><!-- /.container-fluid -->
          </section>
@@ -276,12 +371,12 @@
          <!-- Main content -->
          <section class="content">
             <div class="container-fluid">
-               {{-- <div class="row"> --}}
+               <div class="row">
                   {{-- ================================================================================ --}}
                   @yield('content')
                   {{-- ================================================================================ --}}
 
-                  {{-- </div> --}}
+               </div>
             </div><!-- /.container-fluid -->
          </section>
          <!-- /.content -->
@@ -337,11 +432,7 @@
    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
    <script src="{{asset('public/be')}}/dist/js/pages/dashboard.js"></script>
 
-
    @yield('content2')
-
-
-
 </body>
 
 </html>
