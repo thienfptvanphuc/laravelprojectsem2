@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\fe\HomeController;
 use App\Http\Controllers\be\AdminController;
 use App\Http\Controllers\fe\RentalController;
-use App\Http\Controllers\be\RentalManagement;
+use App\Http\Controllers\be\CategoryController;
+use App\Http\Controllers\be\ProductController;
+use App\Http\Controllers\be\ParentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,21 +19,38 @@ use App\Http\Controllers\be\RentalManagement;
 |
 */
 //Website:
-Route::get('/', [HomeController::class,'home'])->name('fe.home');
-Route::get('/about-us', [HomeController::class,'aboutus'])->name('fe.aboutus');
-Route::get('/contact-us', [HomeController::class,'contactus'])->name('fe.contactus');
-Route::match(['get','post'],'/rental', [RentalController::class,'rental'])->name('fe.rental');
-Route::match(['get','post'],'/payment', [RentalController::class,'payment'])->name('fe.payment');
-Route::match(['get','post'],'/list', [RentalController::class,'list'])->name('fe.list');
-Route::match(['get','post'],'/detail/{key}', [RentalController::class,'cardetail'])->name('fe.cardetail');
+Route::get('/', [HomeController::class, 'home'])->name('fe.home');
+Route::get('/about-us', [HomeController::class, 'aboutus'])->name('fe.aboutus');
+Route::get('/contact-us', [HomeController::class, 'contactus'])->name('fe.contactus');
+Route::match(['get', 'post'], '/rental', [RentalController::class, 'rental'])->name('fe.rental');
+Route::match(['get', 'post'], '/payment', [RentalController::class, 'payment'])->name('fe.payment');
+// route category
+Route::get("/category/{key}.html", [HomeController::class, 'category'])->name("fe.category");
+// route detail
+Route::get("/product/{name}/{key}.html", [HomeController::class, 'detail'])->name("fe.detail");
+
+
 
 //System: 
-Route::prefix('system')->group(function() {
-   Route::get('/',[AdminController::class,'index'])->name('be.main');
-   //Rental 
-   Route::get('/rental',[RentalManagement::class,'index'])->name('be.rental');
-   Route::match(['get','post'],'/rental/detail/id={id}',[RentalManagement::class,'detail'])->name('be.rental-detail');
-   Route::match(['get','post'],'/rental/add-new',[RentalManagement::class,'addnew'])->name('be.rental-add');
-   Route::get('/product/del/{key}',[RentalManagement::class,'del'])->name('be.rental-del');
+Route::prefix('system')->group(function () {
+   Route::get('/', [AdminController::class, 'index'])->name('be.main');
+   // Category
+   // page category
+   Route::get("/category", [CategoryController::class, 'index'])->name("be.category");
+   // route trang add category chạy 2 phương thức get post cùng lúc bằng match
+   Route::match(['get', 'post'], 'category/add.html', [CategoryController::class, 'add'])->name('be.categoryadd');
+   // route trang Update category chạy 2 phương thức get post cùng lúc bằng match
+   Route::match(['get', 'post'], 'category/edit/{key}.html', [CategoryController::class, 'edit'])->name('be.categoryedit');
+   // delete route
+   Route::get("/category/del/{key}.html", [CategoryController::class, 'del'])->name("be.categorydel");
 
+   //Product
+   // Route Products
+   Route::get("/product", [ProductController::class, "index"])->name("be.product");
+   // route add product
+   Route::match(['get', 'post'], 'product/add.html', [ProductController::class, 'add'])->name('be.productadd');
+   // route edit product
+   Route::match(['get', 'post'], 'product/edit/{key}.html', [ProductController::class, 'edit'])->name('be.productedit');
+   // route delete product
+   Route::get("/product/del/{key}.html", [ProductController::class, 'del'])->name("be.productdel");
 });

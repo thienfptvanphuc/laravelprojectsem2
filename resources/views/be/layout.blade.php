@@ -28,12 +28,12 @@
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/daterangepicker/daterangepicker.css">
    <!-- summernote -->
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/summernote/summernote-bs4.min.css">
+   <!-- ck editor -->
+   <script src="{{asset('public')}}/editor/ckeditor/ckeditor.js"></script>
    <!-- DataTables -->
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-   {{-- For page --}}
-   @yield('content1')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -222,30 +222,164 @@
                with font-awesome or any other icon font library -->
 
                   <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-                  {{-- Rentals & Bills Management --}}
-                  {{-- Menu open link active --}}
+                  <!-- <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-car-side"></i>
+                        <p>Cars</p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Car Type</p>
+                           </a>
+                        </li>
+
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Cars</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li> -->
                   <li class="nav-item">
                      <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-car-side"></i>
                         <p>
-                           Rentals & Bills
+                           Car
                            <i class="right fas fa-angle-left"></i>
                         </p>
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="{{route('be.rental')}}" class="nav-link ">
+                           <a href="{{route('be.category')}}" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Categories Car</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.product')}}" class="nav-link">
+                              <i class="fa fa-plus-circle nav-icon"></i>
+                              <p>Product Car</p>
+                           </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
-                              <p>Rentals</p>
+                              <p>Level 2</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Accounts</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>
+                           Booking
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Manage Booking</p>
                            </a>
                         </li>
                         <li class="nav-item">
                            <a href="#" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
-                              <p>Bills</p>
+                              <p>
+                                 Level 2<i class="right fas fa-angle-left"></i>
+                              </p>
+                           </a>
+                           <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Level 2</p>
                            </a>
                         </li>
                      </ul>
+                  </li>
+
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-contract"></i>
+                        <p>
+                           Feedbacks/Comments
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Comments</p>
+                           </a>
+                        </li>
+
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Feedbacks</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Website</p>
+                     </a>
+                  </li>
+                  <li class="nav-header">LABELS</li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-circle text-danger"></i>
+                        <p class="text">Important</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p>Warning</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-circle text-info"></i>
+                        <p>Informational</p>
+                     </a>
                   </li>
                </ul>
             </nav>
@@ -261,7 +395,6 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1>Title Page </h1>
                   </div>
                   <div class="col-sm-6">
                      <ol class="breadcrumb float-sm-right">
@@ -276,12 +409,12 @@
          <!-- Main content -->
          <section class="content">
             <div class="container-fluid">
-               {{-- <div class="row"> --}}
+               <div class="row">
                   {{-- ================================================================================ --}}
                   @yield('content')
                   {{-- ================================================================================ --}}
 
-                  {{-- </div> --}}
+               </div>
             </div><!-- /.container-fluid -->
          </section>
          <!-- /.content -->
@@ -333,15 +466,11 @@
    <!-- AdminLTE App -->
    <script src="{{asset('public/be')}}/dist/js/adminlte.js"></script>
    <!-- AdminLTE for demo purposes -->
-   {{-- <script src="{{asset('public/be')}}/dist/js/demo.js"></script> --}}
+   <script src="{{asset('public/be')}}/dist/js/demo.js"></script>
    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
    <script src="{{asset('public/be')}}/dist/js/pages/dashboard.js"></script>
 
-
    @yield('content2')
-
-
-
 </body>
 
 </html>

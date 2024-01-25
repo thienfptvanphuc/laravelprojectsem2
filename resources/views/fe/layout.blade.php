@@ -8,6 +8,10 @@
    <meta content="Free HTML Templates" name="keywords">
    <meta content="Free HTML Templates" name="description">
 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+   <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
    <!-- Favicon -->
    <link href="{{asset('public/fe')}}/img/icon-car.png" rel="icon">
 
@@ -64,7 +68,16 @@
    </div>
    <!-- Topbar End -->
 
-
+   <!-- lấy action từng trang -->
+   <?php
+        $namepage=explode(".", Route::currentRouteName()); // lấy action từng trang từ sau dấu chấm 
+         // echo $namepage[1];
+         //         echo "<pre>";
+         // print_r($namepage);
+         // echo "</pre>";
+        
+        $car_type = App\Models\CarCategory:: where('type_status',1)->get();
+    ?>
    <!-- Navbar Start -->
    <div class="container-fluid position-relative nav-bar p-0">
       <div class="position-relative px-lg-5" style="z-index: 9;">
@@ -77,16 +90,22 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                <div class="navbar-nav ml-auto py-0">
-                  <a href="index.html" class="nav-item nav-link active">Home</a>
+                  <a href="{{route('fe.home')}}" class="nav-item nav-link active">Home</a>
                   <a href="about.html" class="nav-item nav-link">About</a>
                   <a href="service.html" class="nav-item nav-link">Service</a>
                   <div class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
                      <div class="dropdown-menu rounded-0 m-0">
-                        <a href="car.html" class="dropdown-item">Car Listing</a>
+                        <?php
+                           foreach($car_type as $item){
+                        ?>
+                        <a href="{{route('fe.category' , $item->id)}}" class="dropdown-item">{{$item->name}}</a>
+                        <?php } ?>
+                        <!-- <a href="car.html" class="dropdown-item">Car Listing</a>
                         <a href="detail.html" class="dropdown-item">Car Detail</a>
-                        <a href="booking.html" class="dropdown-item">Car Booking</a>
+                        <a href="booking.html" class="dropdown-item">Car Booking</a> -->
                      </div>
+
                   </div>
                   <div class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -194,6 +213,7 @@
 
 
    <!-- JavaScript Libraries -->
+
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
    <script src="{{asset('public/fe')}}/lib/easing/easing.min.js"></script>
@@ -206,9 +226,8 @@
    <!-- Template Javascript -->
    <script src="{{asset('public/fe')}}/js/main.js"></script>
 
-   {{-- For specific Page --}}
-   @yield('content2')
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+   
 </body>
 
 </html>

@@ -4,8 +4,84 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "content-hash": "c338b85f7933d69932ba1b0ccc6a5dc2",
     "packages": [
+        {
+            "name": "ageekdev/laravel-barcode",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ageekdev/laravel-barcode.git",
+                "reference": "e2b434991a151ecab90e01f298d69cefed220d23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ageekdev/laravel-barcode/zipball/e2b434991a151ecab90e01f298d69cefed220d23",
+                "reference": "e2b434991a151ecab90e01f298d69cefed220d23",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "illuminate/support": "^9.0|^10.0",
+                "php": "^8.1|^8.2",
+                "spatie/color": "^1.5"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.10",
+                "nunomaduro/collision": "^6.0|^7.0",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^7.0|^8.0",
+                "pestphp/pest": "^1.0|^2.0",
+                "pestphp/pest-plugin-laravel": "^1.4|^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "roave/security-advisories": "dev-latest"
+            },
+            "suggest": {
+                "ext-gd": "For JPG and PNG generators, GD or Imagick is required",
+                "ext-imagick": "For JPG and PNG generators, GD or Imagick is required"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AgeekDev\\Barcode\\BarcodeServiceProvider"
+                    ],
+                    "aliases": {
+                        "Barcode": "AgeekDev\\Barcode\\Facades\\Barcode"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AgeekDev\\Barcode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tint Naing Win",
+                    "email": "amigo.k8@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "laravel barcode generator",
+            "homepage": "https://github.com/ageekdev/laravel-barcode",
+            "keywords": [
+                "ageekdev",
+                "barcode",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ageekdev/laravel-barcode/issues",
+                "source": "https://github.com/ageekdev/laravel-barcode/tree/v1.1.1"
+            },
+            "time": "2023-06-18T14:48:46+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -3185,6 +3261,65 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "spatie/color",
+            "version": "1.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/color.git",
+                "reference": "49739265900cabce4640cd26c3266fd8d2cca390"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/color/zipball/49739265900cabce4640cd26c3266fd8d2cca390",
+                "reference": "49739265900cabce4640cd26c3266fd8d2cca390",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^6.5||^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Color\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A little library to handle color conversions",
+            "homepage": "https://github.com/spatie/color",
+            "keywords": [
+                "color",
+                "conversion",
+                "rgb",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/color/issues",
+                "source": "https://github.com/spatie/color/tree/1.5.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-18T12:58:32+00:00"
         },
         {
             "name": "symfony/console",
