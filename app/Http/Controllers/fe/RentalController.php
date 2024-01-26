@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-
-
 use App\Models\CarProduct;
 use App\Models\Rental;
-
-
 
 class RentalController extends Controller
 {
@@ -188,3 +184,4 @@ class RentalController extends Controller
         //  echo "<pre>";
         // print_r($data);
         // echo "</pre>";
+

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CarRating;
 
+
 class CarProduct extends Model
 {
     protected $table = "cars";
@@ -22,5 +23,4 @@ class CarProduct extends Model
     {
         return $this->hasMany(CarRating::class, 'car_id');
     }
-
 }

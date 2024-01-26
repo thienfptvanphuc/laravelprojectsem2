@@ -1,5 +1,6 @@
 @extends('fe/layout')
 @section('content')
+
 <!-- Search Start -->
 <div class="container-fluid bg-white pt-3 px-lg-5">
     <div class="row mx-n2">
@@ -94,13 +95,16 @@
                     <button id="prevBtn" onclick="changeThumbnail(-1)">Previous</button>
                     <button id="nextBtn" onclick="changeThumbnail(1)">Next</button>
                 </div>  -->
-                <div class="row mx-n2 mb-3" id="thumbnailCarousel">
+                <!-- <div class="row mx-n2 mb-3" id="thumbnailCarousel">
+                    @if(is_array(json_decode($detail->thumbnail)))
+                    @foreach(json_decode($detail->thumbnail) as $image=>$images)
                     <div class="item">
                         <img class="img-fluid w-100 "
-                            src="{{asset('public/be/images/products/thumbnail/'.$detail->thumbnail)}}" alt="">
+                            src="{{ asset('public/be/images/products/thumbnail/' . $images) }}" alt="">
                     </div>
-                </div>
-
+                    @endforeach
+                    @endif
+                </div> -->
 
                 <!-- <div class="row mx-n2 mb-3">
                     <img class="img-fluid  w-20"
@@ -178,9 +182,7 @@
 
                 <div class="row pt-2">
                     <div class="col-md-3 col-6 mb-2">
-
                     </div>
-
                     <div class="col-md-3 col-6 mb-2">
                         <i class="fa fa-cogs text-primary mr-2"></i>
                         <span>Automatic</span>
@@ -257,7 +259,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -347,60 +348,129 @@
     </div>
 </div>
 <!-- Related Car End -->
+<!-- script mới -->
+<script>
+    jQuery(document).ready(function ($) {
+        // Owl Carousel initialization
+        $(".gallery-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            nav: true,
+            dots: false,
+            margin: 10,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                768: {
+                    items: 3
+                }
+            },
+            navText: ["<i class='fa fa-arrow-left'></i>", "<i class='fa fa-arrow-right'></i>"]
+        });
 
+        // Click event for opening large image modal
+        $(".gallery-carousel").on("click", ".item img", function () {
+            var largeImageUrl = $(this).attr("src");
+            $("#largeImage").attr("src", largeImageUrl);
+            $("#largeImageModal").modal("show");
+        });
+    });
+</script>
 
-
-
-
-<!-- style rating -->
+<!-- style mới -->
 <style>
-    /* Add your custom styles for the rating here */
-    .rating {
-        display: inline-block;
+    .owl-carousel {
+        transition: transform 0.5s ease-in-out;
     }
 
-    .rating input {
-        display: none;
+    .owl-item {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .rating label {
-        font-size: 30px;
-        color: #ddd;
+    .owl-stage {
+        display: flex;
+        align-items: center;
+    }
+
+    .owl-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+
+    .owl-prev,
+    .owl-next {
+        font-size: 24px;
+        color: #fff;
+        background: #333;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
         cursor: pointer;
     }
-
-    .rating label:hover,
-    .rating label:hover~label,
-    .rating input:checked~label {
-        color: #f39c12;
-    }
-
-    /* Thêm phần này để áp dụng Font Awesome icon cho nhãn trong .rating */
-    .rating label:before {
-        font-family: 'Font Awesome 5 Free';
-        /* Đảm bảo bạn chọn đúng tên font */
-        font-weight: 900;
-        /* Đảm bảo bạn chọn đúng trọng lượng font */
-    }
 </style>
-<!-- style mới -->
 
-@endsection
 
-@section('content2')
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-      // Tạo mảng chứa dữ liệu ngày tháng xe đã được thuê
-      var dateArray = {!! json_encode($rented_dates) !!};
-      
-      $('.schedule').datetimepicker({
-         format: 'YYYY-MM-DD',
-         minDate: new Date(),
-         disabledDates: dateArray
-      });
-   })
-   
+
+
+
+
+<!-- <script>
+    var currentThumbnailIndex = 0;
+    var totalThumbnails = document.querySelectorAll('.thumbnail-item').length;
+
+    function changeThumbnail(offset) {
+        currentThumbnailIndex += offset;
+
+        if (currentThumbnailIndex < 0) {
+            currentThumbnailIndex = totalThumbnails - 1;
+        } else if (currentThumbnailIndex >= totalThumbnails) {
+            currentThumbnailIndex = 0;
+        }
+
+        updateThumbnailDisplay();
+    }
+
+    function updateThumbnailDisplay() {
+        var thumbnails = document.querySelectorAll('.thumbnail-item');
+umbnails.forEach(function(thumbnail, index) {
+            var newIndex = (index - currentThumbnailIndex + totalThumbnails) % totalThumbnails;
+            
+            if (newIndex === 0) {
+                thumbnail.style.display = 'block';
+            } else {
+                thumbnail.style.display = 'none';
+            }
+        });
+    }
+
+    function showButtons() {
+        if (totalThumbnails > 1) {
+            document.getElementById('prevBtn').style.display = 'inline-block';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        } else {
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+    }
+
+    // Gọi hàm showButtons khi trang được tải
+    window.onload = showButtons;
 </script>
+
+<style>
+    #prevBtn,
+    #nextBtn {
+        display: none;
+    }
+</style> -->
 @endsection

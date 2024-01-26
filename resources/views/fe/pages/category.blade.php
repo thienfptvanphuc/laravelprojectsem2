@@ -93,5 +93,6 @@
         <!-- Pagination End -->
     </div>
 </div>
+
 <!-- Rent A Car End -->
 @endsection

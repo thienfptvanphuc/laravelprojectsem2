@@ -231,9 +231,6 @@
    <script src="{{asset('public/fe')}}/js/main.js"></script>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-   <!-- mới -->
-
    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
    @yield('content2')
 </body>

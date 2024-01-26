@@ -34,6 +34,7 @@
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
    @yield('content1')
 </head>
 
@@ -253,7 +254,64 @@
                         </li>
                      </ul>
                   </li>
+                  <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+                  <!-- <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-car-side"></i>
+                        <p>Cars</p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Car Type</p>
+                           </a>
+                        </li>
 
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Cars</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li> -->
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-car-side"></i>
+                        <p>
+                           Car
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="{{route('be.category')}}" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Categories Car</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.product')}}" class="nav-link">
+                              <i class="fa fa-plus-circle nav-icon"></i>
+                              <p>Product Car</p>
+                           </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Level 2</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Accounts</p>
+                     </a>
+                  </li>
                   <li class="nav-item">
                      <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -282,21 +340,49 @@
                      <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
-                           Rentals & Bills
+                           Booking
                            <i class="right fas fa-angle-left"></i>
                         </p>
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="{{route('be.rental')}}" class="nav-link ">
+                           <a href="#" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
-                              <p>Rentals</p>
+                              <p>Manage Booking</p>
                            </a>
                         </li>
                         <li class="nav-item">
                            <a href="#" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
-                              <p>Bills</p>
+                              <p>
+                                 Level 2<i class="right fas fa-angle-left"></i>
+                              </p>
+                           </a>
+                           <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="#" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Level 3</p>
+                                 </a>
+                              </li>
+                           </ul>
+                        </li>
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Level 2</p>
                            </a>
                         </li>
                      </ul>
@@ -326,7 +412,6 @@
                         </li>
                      </ul>
                   </li>
-
                   <li class="nav-item ">
                      <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-globe"></i>
@@ -350,7 +435,6 @@
                         </li>
                      </ul>
                   </li>
-
                </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -364,6 +448,14 @@
          <section class="content-header">
             <div class="container-fluid">
                <div class="row mb-2">
+                  <div class="col-sm-6">
+                  </div>
+                  <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Title Page</li>
+                     </ol>
+                  </div>
                </div>
             </div><!-- /.container-fluid -->
          </section>
@@ -428,7 +520,7 @@
    <!-- AdminLTE App -->
    <script src="{{asset('public/be')}}/dist/js/adminlte.js"></script>
    <!-- AdminLTE for demo purposes -->
-   {{-- <script src="{{asset('public/be')}}/dist/js/demo.js"></script> --}}
+   <script src="{{asset('public/be')}}/dist/js/demo.js"></script>
    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
    <script src="{{asset('public/be')}}/dist/js/pages/dashboard.js"></script>
 

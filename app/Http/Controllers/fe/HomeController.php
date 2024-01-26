@@ -11,7 +11,6 @@ use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Auth;
-
 use App\Models\CarCategory;
 use App\Models\CarProduct;
 
@@ -51,6 +50,7 @@ class HomeController extends Controller
                 $start_date->addDay();
             }
         }
+
         // đúng dữ liệu mới chạy xử lý
         $data['detail'] = CarProduct::where("id", $id)->where("product_status", 1)->first();
         if ($data['detail']) {
@@ -106,7 +106,4 @@ class HomeController extends Controller
     }
 
 
-    
-
-    
 }

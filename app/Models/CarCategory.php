@@ -12,13 +12,12 @@ use App\Models\CarProduct;
 class CarCategory extends Model
 {
     protected $table = "car_type";
-    protected $fillable = ["name", "description", "image_type", "type_status"];
+    protected $fillable = ["id_type", "name", "description", "image_type", "type_status", "create_date", "create_up"];
     protected $primarykey = "id";
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function products()
     {
         return $this->hasMany(CarProduct::class, 'type_id', 'id');
     }
-
 }

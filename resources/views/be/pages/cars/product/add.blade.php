@@ -53,21 +53,20 @@
                             {!!$errors->first('year','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
-                            <label>Seats</label>
-                            <input type="text" name="seats" class="form-control" value="{{old('seats')}}"
-                                placeholder="Please input seats ">
-                            {!!$errors->first('seats','<div class="text-danger">:message</div>')!!}
+                            <label>Capacity</label>
+                            <input type="text" name="capacity" class="form-control" value="{{old('capacity')}}"
+                                placeholder="Please input capacity ">
+                            {!!$errors->first('capacity','<div class="text-danger">:message</div>')!!}
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label for="exampleInputPassword1">Image</label>
+                            <input type="file" name="image" class="form-control" placeholder="Image">
+                            {!!$errors->first('image','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
                             <label for="exampleInputPassword1">Thumbnail</label>
-                            <input type="file" name="thumbnail" class="form-control" placeholder="Thumbnail">
-                            {!!$errors->first('thumbnail','<div class="text-danger">:message</div>')!!}
-                        </div>
-                        <div class="form-group col-md-10">
-                            <label for="exampleInputPassword1">Images</label>
-                            <input type="file" name="images[]" multiple="multiple" class="form-control"
-                                placeholder="Images">
-                            {!!$errors->first('images.*','<div class="text-danger">:message</div>')!!}
+                            <input type="file" name="thumbnail[]" multiple="multiple" class="form-control" placeholder="Thumbnail">
+                            {!!$errors->first('thumbnail.*','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group mb-0 col-md-10">
                             <label for="exampleInputPassword1">Product Status</label> &nbsp; &nbsp;

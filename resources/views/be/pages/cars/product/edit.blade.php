@@ -26,7 +26,7 @@
                             {!!$errors->first('name','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
-                            <label>Type</label>
+                            <label>Type Id</label>
                             <select name="type_id" class="form-control ">
                                 @foreach( $dm as $item)
                                 <option value="{{$item->id}}" @if($item->id==$load->type_id) selected @endif
@@ -54,15 +54,16 @@
                             {!!$errors->first('year','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
-                            <label>Seats</label>
-                            <input type="text" class="form-control" name="seats"
-                                value="{{old('seats',isset($load)?$load->seats:null)}}">
-                            {!!$errors->first('seats','<div class="text-danger">:message</div>')!!}
+                            <label>Capacity</label>
+                            <input type="text" class="form-control" name="capacity"
+                                value="{{old('capacity',isset($load)?$load->capacity:null)}}">
+                            {!!$errors->first('capacity','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
-                            <label for="exampleInputPassword1">Thumbnail</label>
-                            <input type="file" name="thumbnail" class="form-control" placeholder="Thumbnail">
-                            {!!$errors->first('thumbnail','<div class="text-danger">:message</div>')!!}
+                            <label for="exampleInputPassword1">Image</label>
+                            <input type="file" name="image" class="form-control" placeholder="Image">
+                            {!!$errors->first('image','<div class="text-danger">:message</div>')!!}
+
                         </div>
                         <div class="form-group mb-0 col-md-10">
                             <label for="exampleInputPassword1">Product Status</label> &nbsp; &nbsp;

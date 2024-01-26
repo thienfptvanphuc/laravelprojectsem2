@@ -9,8 +9,7 @@
                     <h2 class="card-title">Add Category</h2>
                 </div>
                 <!-- form start -->
-                <form action="{{ route('be.categoryadd') }}" method="post" enctype="multipart/form-data"
-                    id="addCategoryForm">
+                <form action="{{ route('be.categoryadd') }}" method="post" enctype="multipart/form-data" id="addCategoryForm">
                     @csrf
                     <div class="card-body ">
                         <div class="form-group col-md-10">
@@ -18,6 +17,12 @@
                             <input type="text" name="name" class="form-control" value="{{old('name')}}"
                                 placeholder="Please input name ">
                             {!!$errors->first('name','<div class="text-danger">:message</div>')!!}
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label>Type Id</label>
+                            <input type="text" name="id_type" class="form-control" value="{{old('id_type')}}"
+                                placeholder="Please input type id ">
+                            {!!$errors->first('id_type','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
                             <label for="exampleInputPassword1">Description</label>
@@ -42,7 +47,6 @@
                             Reset</button>
                         <a href="{{route('be.category')}}" class="btn btn-danger"><i
                                 class="fa fa-arrow-circle-left"></i> Back</a>
-
                     </div>
                 </form>
                 <!-- form end -->

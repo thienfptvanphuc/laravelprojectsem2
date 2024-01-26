@@ -36,9 +36,9 @@
                                 <!-- <th>Family Color</th> -->
                                 <!-- <th>Price</th>
                                 <th>Year</th>
-                                <th>seats</th> -->
+                                <th>Capacity</th> -->
+                                <th>Image</th>
                                 <th>Thumbnail</th>
-                                <th>Images</th>
                                 <!-- <th>Date</th>
                                 <th>Description</th> -->
                                 <!-- <th>Overview</th> -->
@@ -60,38 +60,28 @@
                                 <td>{{$item->brand}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
-                                    {!! QrCode::size(100)->encoding('UTF-8')->generate(
-                                    "EASY CAR COMPANY LIMITED\n\n" .
-                                    "Name: " . $item->name . "\n" .
-                                    "Image: " . $item->image . "\n" .
-                                    "Price: " . number_format($item->price, 0, ',', '.') . " VND \n" .
-                                    "Brand: " . $item->brand . "\n" .
-                                    "Color: " . $item->color
-                                    ) !!}
-                                    <br>
-                                    <a href="{{ route('download.qrcode', ['filename' => rawurlencode("
-                                        Product_{$item->name}.png")]) }}">Download QR</a>
+                                    <img src="{{ asset('public/be/images/barcodes/' . $item->barcode) }}" alt="Barcode">
+                                    <!-- <img src="http://localhost:83/testfe/be/images/barcodes/barcode_1705558490.svg" alt="Barcode"> -->
+                                    <p>{{ $item->barcode }}</p>
                                 </td>
                                 <!-- <td>{{$item->color}}</td> -->
                                 <!-- <td>{{$item->color_id}}</td> -->
                                 <!-- <td>{{$item->price}}</td> -->
                                 <!-- <td>{{$item->year}}</td>
-                                    <td>{{$item->seats}}</td> -->
+                                    <td>{{$item->capacity}}</td> -->
                                 <td>
                                     <img width="80" height="80"
-                                        src="{{asset('public/be/images/products/thumbnail/'.$item->thumbnail)}}" />
+                                        src="{{asset('public/be/images/products/imagesPro/'.$item->image)}}" />
                                 </td>
-
+                                
                                 <td>
-                                    <!-- thumnail xét trong thumbnail có dữ liệu hay rỗng ko, nếu có dữ liệu sẽ lấy qua hình thức vòng lập trong mảng json đã lưu và load hình ra -->
-                                    @if(!empty($item->images))
-                                    @foreach(json_decode($item->images) as $img)
-                                    <img width="50" height="50"
-                                        src="{{ asset('public/be/images/products/imagesPro/' . $img) }}" />
-                                    @endforeach
+                                <!-- thumnail xét trong thumbnail có dữ liệu hay rỗng ko, nếu có dữ liệu sẽ lấy qua hình thức vòng lập trong mảng json đã lưu và load hình ra -->
+                                    @if(!empty($item->thumbnail))
+                                        @foreach(json_decode($item->thumbnail) as $thumbnail)
+                                            <img width="50" height="50" src="{{ asset('public/be/images/products/thumbnail/' . $thumbnail) }}" />
+                                        @endforeach
                                     @endif
                                 </td>
-
                                 <!-- <td>{{$item->created_at}}</td>
                                     <td>{{$item->description}}</td> -->
                                 <!-- <td>{{$item->overview}}</td> -->
@@ -122,21 +112,20 @@
 </div>
 @endsection
 @section('content2')
-{{-- data table --}}
-<script src="{{asset('public/be')}}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/jszip/jszip.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-<script>
+    {{-- data table --}}
+    <script src="{{asset('public/be')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/jszip/jszip.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script>
     $(function () {
         $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -147,5 +136,6 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     
     });
-</script>
+    </script>
+
 @endsection

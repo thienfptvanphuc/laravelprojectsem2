@@ -16,12 +16,12 @@
                 <div class="card-header">
                     <!-- Display message added successfully -->
                     @if(Session::has("note"))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ Session::get("note") }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ Session::get("note") }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     @endif
                 </div>
                 <div class="card-body">
@@ -53,19 +53,18 @@
                                 <td>{{$item->id_type}}</td>
                                 <td>{{$item->description}}</td>
                                 <td>
-                                    <img width="100" height="100"
-                                        src="{{asset('public/be/images/categories/'.$item->image_type)}}" />
+                                    <img width="100" height="100" 
+                                    src="{{asset('public/be/images/categories/'.$item->image_type)}}" />
+                                    {{$item->image_type}}
                                 </td>
                                 <td>
-                                    {{ \Carbon\Carbon::parse($item['create_date'])->timezone('Asia/Ho_Chi_Minh') }}
+                                {{ \Carbon\Carbon::parse($item['create_date'])->timezone('Asia/Ho_Chi_Minh') }}
                                 </td>
                                 <td>{!!$type_status!!}</td>
                                 <td>
-                                    <a href="{{route('be.categoryedit' ,$item->id)}}"
-                                        class="btn btn-sm btn-success">Edit</a>
+                                    <a href="{{route('be.categoryedit' ,$item->id)}}" class="btn btn-sm btn-success">Edit</a>
                                     &nbsp; &nbsp; &nbsp;
-                                    <a href="{{route('be.categorydel' ,$item->id)}}"
-                                        class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="{{route('be.categorydel' ,$item->id)}}" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -92,7 +91,6 @@
 <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 <script>
     $(function () {
         $("#example1").DataTable({
@@ -104,5 +102,7 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     
     });
+
 </script>
+
 @endsection

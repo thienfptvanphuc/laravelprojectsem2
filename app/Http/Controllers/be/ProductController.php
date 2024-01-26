@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\CarProduct;
 use App\Models\CarCategory;
 use Session;
+use AgeekDev\Barcode\Facades\Barcode;
+use AgeekDev\Barcode\Enums\Type;
+
 //thư viện QR_Code
 use Endroid\QrCode\QrCode;
 // use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -30,24 +33,28 @@ class ProductController extends Controller
                 "brand" => "required",
                 "name" => "required",
                 "year" => "required",
-                "seats" => "required",
+                "capacity" => "required",
                 "price" => "required|numeric",
                 "overview" => "required",
                 "color" => "required",
-                "thumbnail" => "required|mimes:jpeg,png,gif,jpg,ico|max:50096",
-                'images.*' => 'image|mimes:jpeg,bmp,png,gif,jpg|max:50096', // nhiều ảnh phải thêm dấu . và *
+                "image" => "required|mimes:jpeg,png,gif,jpg,ico|max:50096",
+                'thumbnail.*' => 'image|mimes:jpeg,bmp,png,gif,jpg|max:50096', // nhiều ảnh phải thêm dấu . và *
 
             ]);
             $Product = new CarProduct();
+            $barcodeValue = $this->generateBarcode();
+            $Product->barcode = $barcodeValue;
             $Product->brand = $request->brand;
             $Product->name = $request->name;
             $Product->year = $request->year;
-            $Product->seats = $request->seats;
+            $Product->capacity = $request->capacity;
+
             $Product->overview = $request->overview;
             $Product->price = $request->price;
             $Product->color = $request->color;
 
             // lấy dữ liệu của image
+
             if ($request->hasFile("thumbnail")) {
                 $img = $request->file("thumbnail"); // lay ten anh
                 $nameimg = time() . "_" . $img->getClientOriginalName(); // vd: 849883_hinh.jpg
@@ -94,22 +101,25 @@ class ProductController extends Controller
                 "brand" => "required",
                 "name" => "required",
                 "year" => "required",
-                "seats" => "required",
+                "capacity" => "required",
                 "price" => "required|numeric",
                 "overview" => "required",
                 "color" => "required",
-                "thumbnail" => "required|mimes:jpeg,png,gif,jpg,ico|max:50096",
+                "image" => "required|mimes:jpeg,png,gif,jpg,ico|max:50096",
 
             ]);
             $Product = CarProduct::find($id);
+            $barcodeValue = $this->generateBarcode();
+            $Product->barcode = $barcodeValue;
             $Product->brand = $request->brand;
             $Product->name = $request->name;
             $Product->year = $request->year;
-            $Product->seats = $request->seats;
+            $Product->capacity = $request->capacity;
             $Product->overview = $request->overview;
             $Product->price = $request->price;
             $Product->color = $request->color;
             // lấy dữ liệu của image
+
             if ($request->hasFile("thumbnail")) {
                 $img = $request->file("thumbnail"); // lay ten anh
                 $nameimg = time() . "_" . $img->getClientOriginalName(); // vd: 849883_hinh.jpg
@@ -160,6 +170,7 @@ class ProductController extends Controller
         // bắt lỗi    
         try {
             $load = CarProduct::find($id);
+
             @unlink('public/be/images/products/thumbnail/' . $load->thumbnail); // xoá hình
             CarProduct::destroy($id); // xoá thông tin
             Session::flash("note", "Delete Product Success");
@@ -169,6 +180,8 @@ class ProductController extends Controller
         }
 
     }
+
+
 
     // Create QR_Code
     private function generateQRCode($productName, $productPrice, $imageName, $imageBrand, $imageColor)
@@ -216,5 +229,6 @@ class ProductController extends Controller
     //     // Truyền biến $product vào view
     //     return view('fe.detail', compact('product'));
     // }
+
 
 }
