@@ -6,8 +6,8 @@
    <div class="container pt-5 pb-3">
       <div class="row align-items-center pb-2">
          <div class="col-lg-6 mb-4">
-            <h1 class="display-4 text-uppercase mb-5">Mercedes Benz R3</h1>
-            <h4 class="mb-2">$99.00/Day</h4>
+            <h1 class="display-4 text-uppercase mb-5">{{Session::get('car_id')}}</h1>
+            <h4 class="mb-2">{{Session::get('price_per_day')}}/Day</h4>
             <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit
                consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed
                stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata
@@ -29,7 +29,7 @@
       <div class="row">
          <div class="col-lg-8">
             <h2 class="mb-4">Booking Detail</h2>
-            <form action="" method="post">
+            <form action="{{route('fe.payment')}}" method="post">
                @csrf
                <div class="mb-5">
                   <div class="row">
@@ -50,6 +50,22 @@
                               <span>{{Session::get('return_date')}}</span>
                            </div>
                         </div>
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Total Days</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('total_days')}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Total Amount</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('total_days')*Session::get('price_per_day')*1000}} VND</span>
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div class="form-group row">
@@ -59,7 +75,7 @@
                      <textarea name="note" class="form-control col-9 py-3 px-4" rows="3"
                         placeholder="Special Request"></textarea>
                   </div>
-                  <div class="row"><button type="submit">Book</button></div>
+                  <div class="row"><button type="submit" name="redirect">Book</button></div>
                </div>
             </form>
          </div>
@@ -84,7 +100,7 @@
                      <label class="custom-control-label" for="banktransfer">VNPay</label>
                   </div>
                </div>
-               <button class="btn btn-block btn-primary py-3">Reserve Now</button>
+               <a href="" class="btn btn-block btn-primary py-3">Reserve Now</a>
             </div>
          </div>
       </div>
