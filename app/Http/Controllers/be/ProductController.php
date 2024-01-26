@@ -10,6 +10,11 @@ use Session;
 use AgeekDev\Barcode\Facades\Barcode;
 use AgeekDev\Barcode\Enums\Type;
 
+//thư viện QR_Code
+use Endroid\QrCode\QrCode;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
 class ProductController extends Controller
 {
     //Index
@@ -43,29 +48,34 @@ class ProductController extends Controller
             $Product->name = $request->name;
             $Product->year = $request->year;
             $Product->capacity = $request->capacity;
+
             $Product->overview = $request->overview;
             $Product->price = $request->price;
             $Product->color = $request->color;
 
             // lấy dữ liệu của image
-            if ($request->hasFile("image")) {
-                $img = $request->file("image"); // lay ten anh
+
+            if ($request->hasFile("thumbnail")) {
+                $img = $request->file("thumbnail"); // lay ten anh
                 $nameimg = time() . "_" . $img->getClientOriginalName(); // vd: 849883_hinh.jpg
-                $img->move('public/be/images/products/imagesPro/', $nameimg); // move iamge: luu hinh trong thu muc public/file/image
+                $img->move('public/be/images/products/thumbnail/', $nameimg); // move iamge: luu hinh trong thu muc public/file/image
                 // gán tên hình của ảnh vào cột image
-                $Product->image = $nameimg;
+                $Product->thumbnail = $nameimg;
 
             }
             // nhiều hình
-            if ($request->hasfile('thumbnail')) {
-                foreach ($request->file('thumbnail') as $file) {
+            if ($request->hasfile('images')) {
+                foreach ($request->file('images') as $file) {
                     $name = time() . '_at.' . $file->getClientOriginalName();
-                    $file->move('public/be/images/products/thumbnail/', $name);
+                    $file->move('public/be/images/products/imagesPro/', $name);
                     $image[] = $name;
 
                 }
-                $Product->thumbnail = json_encode($image);
+                $Product->images = json_encode($image);
             }
+
+            // Thêm vào để tạo qr_code
+            $this->generateQRCode($Product->name, $Product->image, $Product->price*1000, $Product->brand, $Product->color);
             $Product->type_id = $request->type_id;
             $Product->created_at = now();
             $Product->updated_at = now();
@@ -109,33 +119,36 @@ class ProductController extends Controller
             $Product->price = $request->price;
             $Product->color = $request->color;
             // lấy dữ liệu của image
-            if ($request->hasFile("image")) {
-                $img = $request->file("image"); // lay ten anh
+
+            if ($request->hasFile("thumbnail")) {
+                $img = $request->file("thumbnail"); // lay ten anh
                 $nameimg = time() . "_" . $img->getClientOriginalName(); // vd: 849883_hinh.jpg
-                @unlink('public/be/images/products/imagesPro/' . $data["load"]->image); // sau khi update hình mới xoá hình cũ
-                $img->move('public/be/images/products/imagesPro/', $nameimg); // move iamge: luu hinh trong thu muc public/file/image
+                @unlink('public/be/images/products/thumbnail/' . $data["load"]->thumbnail); // sau khi update hình mới xoá hình cũ
+                $img->move('public/be/images/products/thumbnail/', $nameimg); // move iamge: luu hinh trong thu muc public/file/image
                 // gán tên hình của ảnh vào cột image
-                $Product->image = $nameimg;
+                $Product->thumbnail = $nameimg;
 
             } else {
-                $Product->image = $data["load"]->image;
+                $Product->thumbnail = $data["load"]->thumbnail;
             }
             // nhiều hình
-            if($request->hasfile('thumbnail')) {
-            	if($Product->thumbnail!=""){
-	            	foreach (json_decode($Product->thumbnail) as $key) {
-	            		@unlink('public/be/images/products/thumbnail/'.$key);
-	            	}
-            	}
-	            foreach($request->file('thumbnail') as $file){
-	                $name=time().'_at.'.$file->getClientOriginalName();
-	                $file->move('public/be/images/products/thumbnail/',$name); 
-	                $image[] = $name;
-                    
-	            }
-	            $Product->thumbnail=json_encode($image);
-			}
+            if ($request->hasfile('images')) {
+                if ($Product->images != "") {
+                    foreach (json_decode($Product->images) as $key) {
+                        @unlink('public/be/images/products/imagesPro/' . $key);
+                    }
+                }
+                foreach ($request->file('thumbnail') as $file) {
+                    $name = time() . '_at.' . $file->getClientOriginalName();
+                    $file->move('public/be/images/products/imagesPro/', $name);
+                    $image[] = $name;
 
+                }
+                $Product->images = json_encode($image);
+            }
+
+            //chỉ cần thêm phương thức này vào hàm để cập nhật lại qr code theo các giá trị
+            $this->generateQRCode($Product->name, $Product->thumbnail, $Product->price, $Product->brand, $Product->color);
             $Product->type_id = $request->type_id;
             $Product->created_at = now();
             $Product->updated_at = now();
@@ -157,7 +170,8 @@ class ProductController extends Controller
         // bắt lỗi    
         try {
             $load = CarProduct::find($id);
-            @unlink('public/be/images/products/imagesPro/' . $load->image); // xoá hình
+
+            @unlink('public/be/images/products/thumbnail/' . $load->thumbnail); // xoá hình
             CarProduct::destroy($id); // xoá thông tin
             Session::flash("note", "Delete Product Success");
             return redirect()->route('be.product'); // xoá xong về trang chủ
@@ -167,28 +181,54 @@ class ProductController extends Controller
 
     }
 
-    // create barcode
-    private function generateBarcode()
+
+
+    // Create QR_Code
+    private function generateQRCode($productName, $productPrice, $imageName, $imageBrand, $imageColor)
     {
-        $barcode = Barcode::imageType("svg")
-            ->foregroundColor("#000000")
-            ->height(30)
-            ->widthFactor(2)
-            ->type(Type::TYPE_CODE_128)
-            ->generate("081231723897");
+        $companyName = "EASY CAR COMPANY LIMITED"; // Tên công ty cố định
 
-        // Lưu hoặc sử dụng mã vạch theo nhu cầu của bạn
-        // Ví dụ: Lưu vào thư mục public/file/barcode và trả về đường dẫn của file
-        $filename = 'barcode_' . time() . '.svg';
-        $barcodePath = public_path('be/images/barcodes');
+        // Tạo một thể hiện mã QR mới
+        $qrCode = new QrCode("$companyName\n\n$productName\n\nThumbnail: $imageName\n\n
+            Price: $productPrice VND\n\nBrand: $imageBrand\n\nColor: $imageColor");
 
-        if (!file_exists($barcodePath)) {
-            mkdir($barcodePath, 0755, true);
+        // Lưu mã QR dưới dạng tệp hình ảnh
+        $fileName = "product_$productName.png";
+
+        // Xóa tệp tin cũ trước khi tạo QR code mới
+        $oldQRCodePath = public_path("be/carqrcode/$fileName");
+        $realPath = realpath($oldQRCodePath);
+
+        if ($realPath && file_exists($realPath)) {
+            unlink($realPath);
         }
 
-        file_put_contents($barcodePath . '/' . $filename, $barcode);
 
-        return $filename;
+        $qrCode->writeFile(public_path("be/carqrcode/$fileName"));
+
     }
+    // Download QR
+    public function downloadQRCode($filename)
+    {
+        $path = public_path("be/carqrcode/$filename");
+
+        return response()->download($path);
+    }
+
+    // public function showProductDetail($id)
+    // {
+    //     // Lấy thông tin sản phẩm từ cơ sở dữ liệu
+    //     $product = CarProduct::find($id);
+
+    //     // Kiểm tra xem sản phẩm có tồn tại không
+    //     if (!$product) {
+    //         // Xử lý khi không tìm thấy sản phẩm
+    //         return redirect()->back()->with('error', 'Không tìm thấy sản phẩm.');
+    //     }
+
+    //     // Truyền biến $product vào view
+    //     return view('fe.detail', compact('product'));
+    // }
+
 
 }

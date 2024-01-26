@@ -116,18 +116,44 @@
                </div>
             </div>
             <h2 class="mb-4">Booking Detail</h2>
-            <div class="mb-5">
-               <div class="row">
-                  <div class="col-6 form-group">
-                     <div class="date" id="date2" data-target-input="nearest">
-                        <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date"
-                           data-target="#date2" data-toggle="datetimepicker" />
-                     </div>
-                  </div>
-                  <div class="col-6 form-group">
-                     <div class="time" id="time2" data-target-input="nearest">
-                        <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Time"
-                           data-target="#time2" data-toggle="datetimepicker" />
+
+            <form action="{{route('fe.payment')}}" method="post">
+               @csrf
+               <div class="mb-5">
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Pickup Date</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('pickup_date')}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Return Date</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('return_date')}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Total Days</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('total_days')}}</span>
+                           </div>
+                        </div>
+                        <div class="row mb-3">
+                           <div class="col-2">
+                              <h6>Total Amount</h6>
+                           </div>
+                           <div class="col-9">
+                              <span>{{Session::get('total_days')*Session::get('price_per_day')*1000}} VND</span>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -148,6 +174,7 @@
                         <option value="3">Child 3</option>
                      </select>
                   </div>
+                  <div class="row"><button type="submit" name="redirect">Book</button></div>
                </div>
                <div class="form-group">
                   <textarea class="form-control py-3 px-4" rows="3" placeholder="Special Request"
@@ -176,7 +203,7 @@
                      <label class="custom-control-label" for="banktransfer">VNPay</label>
                   </div>
                </div>
-               <button class="btn btn-block btn-primary py-3">Reserve Now</button>
+               <a href="" class="btn btn-block btn-primary py-3">Reserve Now</a>
             </div>
          </div>
       </div>

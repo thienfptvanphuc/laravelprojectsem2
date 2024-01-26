@@ -15,7 +15,8 @@
                         <div class="form-group col-md-10">
                             <label >Name</label>
                             <input type="text" name="name" class="form-control" 
-                            value="{{old('name',isset($load)?$load->name:null)}}"    placeholder="Please input name ">
+                            value="{{old('name',isset($load)?$load->name:null)}}"    
+                            placeholder="Please input name ">
                             {!!$errors->first('name','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">
@@ -27,7 +28,8 @@
                         <div class="form-group col-md-10">
                             <label for="exampleInputPassword1">Description</label>
                             <input type="text" name="description" class="form-control" 
-                            value="{{old('description',isset($load)?$load->name:null)}}"    placeholder=" Please input description">
+                            value="{{old('description',isset($load)?$load->name:null)}}"    
+                            placeholder=" Please input description">
                             {!!$errors->first('description','<div class="text-danger">:message</div>')!!}
                         </div>
                         <div class="form-group col-md-10">

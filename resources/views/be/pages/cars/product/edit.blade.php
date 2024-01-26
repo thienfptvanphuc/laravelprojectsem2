@@ -63,6 +63,7 @@
                             <label for="exampleInputPassword1">Image</label>
                             <input type="file" name="image" class="form-control" placeholder="Image">
                             {!!$errors->first('image','<div class="text-danger">:message</div>')!!}
+
                         </div>
                         <div class="form-group mb-0 col-md-10">
                             <label for="exampleInputPassword1">Product Status</label> &nbsp; &nbsp;
@@ -75,7 +76,7 @@
                         </div>
                         <div class="form-group col-md-10">
                             <label>Overview</label>
-                            <textarea name="overview" id="overview" class="form-control"></textarea>
+                            <textarea name="overview" id="overview" class="form-control">{{$load->overview}}</textarea>
                             <script>
                                 CKEDITOR.replace('overview');
                             </script>

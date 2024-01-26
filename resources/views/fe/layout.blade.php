@@ -21,7 +21,12 @@
       rel="stylesheet">
 
    <!-- Font Awesome -->
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet"> -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
+
+
 
    <!-- Libraries Stylesheet -->
    <link href="{{asset('public/fe')}}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -32,6 +37,9 @@
 
    <!-- Template Stylesheet -->
    <link href="{{asset('public/fe')}}/css/style.css" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -40,28 +48,13 @@
       <div class="row">
          <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
             <div class="d-inline-flex align-items-center">
-               <a class="text-body pr-3" href=""><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</a>
+               @if(Auth::check())
+               <a class="text-body px-3" href=""><i class="fa fa-envelope mr-2"></i>{{Auth::user()->fullname}}</a>
+               <a class="text-body pr-3" href="{{route('fe.logout')}}"><i class="fa fa-phone-alt mr-2"></i>Logout</a>
                <span class="text-body">|</span>
-               <a class="text-body px-3" href=""><i class="fa fa-envelope mr-2"></i>info@example.com</a>
-            </div>
-         </div>
-         <div class="col-md-6 text-center text-lg-right">
-            <div class="d-inline-flex align-items-center">
-               <a class="text-body px-3" href="">
-                  <i class="fab fa-facebook-f"></i>
-               </a>
-               <a class="text-body px-3" href="">
-                  <i class="fab fa-twitter"></i>
-               </a>
-               <a class="text-body px-3" href="">
-                  <i class="fab fa-linkedin-in"></i>
-               </a>
-               <a class="text-body px-3" href="">
-                  <i class="fab fa-instagram"></i>
-               </a>
-               <a class="text-body pl-3" href="">
-                  <i class="fab fa-youtube"></i>
-               </a>
+               @else
+               <a class="text-body pr-3" href="{{route('fe.login')}}"><i class="fa fa-phone-alt mr-2"></i>Login</a>
+               @endif
             </div>
          </div>
       </div>
@@ -92,7 +85,7 @@
                <div class="navbar-nav ml-auto py-0">
                   <a href="{{route('fe.home')}}" class="nav-item nav-link active">Home</a>
                   <a href="about.html" class="nav-item nav-link">About</a>
-                  <a href="service.html" class="nav-item nav-link">Service</a>
+                  <a href="service.html" class="nav-item nav-link">Blogs</a>
                   <div class="nav-item dropdown">
                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
                      <div class="dropdown-menu rounded-0 m-0">
@@ -107,14 +100,25 @@
                      </div>
 
                   </div>
+                  @if (!Auth::check())
+                  <a href="{{route('fe.login')}}" class="nav-item nav-link">Login</a>
+                  <a href="{{route('fe.register')}}" class="nav-item nav-link">Register</a>
+                  @endif
+                  @if (Auth::check())
+
                   <div class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                     <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>
+                        {{Auth::user()->username}}
+                     </a>
                      <div class="dropdown-menu rounded-0 m-0">
-                        <a href="team.html" class="dropdown-item">The Team</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                        <a href="team.html" class="dropdown-item">Profile</a>
+                        <a href="testimonial.html" class="dropdown-item">Booking History</a>
+                        <a href="{{route('fe.logout')}}" class="dropdown-item">Log out</a>
                      </div>
                   </div>
-                  <a href="contact.html" class="nav-item nav-link">Contact</a>
+                  {{-- --}}
+                  @endif
                </div>
             </div>
          </nav>
@@ -227,7 +231,8 @@
    <script src="{{asset('public/fe')}}/js/main.js"></script>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-   
+   {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
+   @yield('content2')
 </body>
 
 </html>

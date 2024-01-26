@@ -34,6 +34,8 @@
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
    <link rel="stylesheet" href="{{asset('public/be')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+   @yield('content1')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -214,13 +216,44 @@
                </div>
             </div>
 
+            {{-- @php
+            echo \Illuminate\Support\Facades\Route::currentRouteName();
+            @endphp --}}
+
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
+                  <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-car-side"></i>
+                        <p>
+                           Car Management
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="{{route('be.category')}}" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Categories</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.product')}}" class="nav-link">
+                              <i class="fa fa-plus-circle nav-icon"></i>
+                              <p>Cars</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{route('be.rating')}}" class="nav-link">
+                              <i class="fa fa-star nav-icon"></i>
+                              <p>Car Rating</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
                   <li class="nav-header">MULTI LEVEL EXAMPLE</li>
                   <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
@@ -280,6 +313,30 @@
                      </a>
                   </li>
                   <li class="nav-item">
+                     <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                           Account Management
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Users</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="" class="nav-link">
+                              <i class="fa fa-list-alt nav-icon"></i>
+                              <p>Moderator</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+
+                  <li class="nav-item ">
                      <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-contract"></i>
                         <p>
@@ -355,31 +412,28 @@
                         </li>
                      </ul>
                   </li>
-
-                  <li class="nav-item">
+                  <li class="nav-item ">
                      <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Website</p>
+                        <i class="nav-icon fas fa-globe"></i>
+                        <p>
+                           Website
+                           <i class="right fas fa-angle-left"></i>
+                        </p>
                      </a>
-                  </li>
-                  <li class="nav-header">LABELS</li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Important</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Warning</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p>Informational</p>
-                     </a>
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                           <a href="" class="nav-link ">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Carousel</p>
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="#" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Blogs</p>
+                           </a>
+                        </li>
+                     </ul>
                   </li>
                </ul>
             </nav>

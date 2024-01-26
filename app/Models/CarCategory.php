@@ -20,5 +20,4 @@ class CarCategory extends Model
     {
         return $this->hasMany(CarProduct::class, 'type_id', 'id');
     }
-
 }

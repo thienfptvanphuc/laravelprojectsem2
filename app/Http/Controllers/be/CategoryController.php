@@ -30,6 +30,7 @@ class CategoryController extends Controller
             // lấy giá trị người dùng nhập vào các ô
             $cate = new CarCategory();
             $cate->id_type = $request->id_type;
+
             $cate->name = $request->name;
             $cate->description = $request->description;
             // lấy dữ liệu của image
@@ -59,12 +60,14 @@ class CategoryController extends Controller
             // edit data
             $this->validate($request, [
                 "id_type" => "required",
+
                 "name" => "required",
                 "image_type" => "mimes:jpeg,png,gif,jpg,ico|max:4096",
                 "description" => "required",
             ]);
             $cate = CarCategory::find($id);
             $cate->id_type = $request->id_type;
+
             $cate->name = $request->name;
             $cate->description = $request->description;
             // Get image data
@@ -82,6 +85,7 @@ class CategoryController extends Controller
             $cate->type_status = $request->type_status;
             $cate->create_date = now();
             $cate->create_up = now();
+
             $cate->save();
             Session::flash("note", "Edited Successfully");
             return redirect()->route("be.category");

@@ -29,7 +29,7 @@
                             <label>Type Id</label>
                             <select name="type_id" class="form-control ">
                                 @foreach( $dm as $item)
-                                    <option value="{{$item -> id}}">{{$item -> name}}</option>
+                                <option value="{{$item -> id}}">{{$item -> name}}</option>
                                 @endforeach
                             </select>
                             {!!$errors->first('type_id','<div class="text-danger">:message</div>')!!}
@@ -75,7 +75,7 @@
                         </div>
                         <div class="form-group col-md-10">
                             <label>Overview</label>
-                            <textarea name="overview" id="overview" class="form-control"></textarea>
+                            <textarea name="overview" id="overview" class="form-control">{{old('overview')}}</textarea>
                             <script>
                                 CKEDITOR.replace('overview');
                             </script>

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // 'cus' => [
+        //     'driver' => 'session',
+        //     'provider' => 'customer',
+        // ],
     ],
 
     /*
@@ -60,10 +64,19 @@ return [
     */
 
     'providers' => [
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\CarAccount::class,
         ],
+
+        // 'customer' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\CarAccount::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

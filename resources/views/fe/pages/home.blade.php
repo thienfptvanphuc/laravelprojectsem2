@@ -3,39 +3,39 @@
 
 <!-- Search Start -->
 <div class="container-fluid bg-white pt-3 px-lg-5">
-   <div class="row mx-n2 justify-content-center">
+   <form action="{{route('fe.search')}}" method="get">
+      @csrf
+      <div class="row mx-n2 justify-content-center">
+         <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+            <div class="mb-3" id="pdate" data-target-input="nearest">
+               <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date" name="pk_date"
+                  data-target="#pdate" data-toggle="datetimepicker" onkeydown="return false" />
+            </div>
+         </div>
 
-      <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-         <div class="date mb-3" id="pdate" data-target-input="nearest">
-            <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date"
-               data-target="#pdate" data-toggle="datetimepicker" />
+         <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+            <div class="mb-3" id="rdate" data-target-input="nearest">
+               <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Return Date" name="rt_date"
+                  data-target="#rdate" data-toggle="datetimepicker" onkeydown="return false" />
+            </div>
+         </div>
+
+         @php
+         $car_type = App\Models\CarCategory:: where('type_status',1)->get();
+         @endphp
+         <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+            <select class="custom-select px-4 mb-3" style="height: 50px;" name="ctype">
+               <option value="0" disabled selected>Select car type</option>
+               @foreach ($car_type as $item)
+               <option value="{{$item->id}}">{{$item->name}}</option>
+               @endforeach
+            </select>
+         </div>
+         <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+            <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
          </div>
       </div>
-      <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-         <div class="date mb-3" id="rdate" data-target-input="nearest">
-            <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Return Date"
-               data-target="#rdate" data-toggle="datetimepicker" />
-         </div>
-      </div>
-      <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-         <div class="time mb-3" id="time" data-target-input="nearest">
-            <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Time"
-               data-target="#time" data-toggle="datetimepicker" />
-         </div>
-      </div>
-      <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-         <select class="custom-select px-4 mb-3" style="height: 50px;">
-            <option selected>Select Car Type</option>
-            <option value="1">Electric</option>
-            <option value="2">Sedan</option>
-            <option value="3">SUV</option>
-            <option value="3">Pickup</option>
-         </select>
-      </div>
-      <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-         <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
-      </div>
-   </div>
+   </form>
 </div>
 <!-- Search End -->
 
@@ -624,5 +624,18 @@
    </div>
 </div>
 <!-- Vendor End -->
+
+@endsection
+
+@section('content2')
+
+<script>
+   $(document).ready(function () {
+$('#pdate, #rdate').datetimepicker({
+   format: 'YYYY-MM-DD',
+   minDate: new Date()
+});
+})
+</script>
 
 @endsection

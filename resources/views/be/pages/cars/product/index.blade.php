@@ -31,7 +31,7 @@
                                 <th>No.</th>
                                 <th>Brand</th>
                                 <th>Name</th>
-                                <th>Bar Code</th>
+                                <th>Qr Code</th>
                                 <!-- <th>Color</th> -->
                                 <!-- <th>Family Color</th> -->
                                 <!-- <th>Price</th>
@@ -82,7 +82,6 @@
                                         @endforeach
                                     @endif
                                 </td>
-
                                 <!-- <td>{{$item->created_at}}</td>
                                     <td>{{$item->description}}</td> -->
                                 <!-- <td>{{$item->overview}}</td> -->
@@ -126,7 +125,6 @@
     <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{asset('public/be')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
     <script>
     $(function () {
         $("#example1").DataTable({
@@ -139,4 +137,5 @@
     
     });
     </script>
+
 @endsection

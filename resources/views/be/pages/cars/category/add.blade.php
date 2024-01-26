@@ -47,7 +47,6 @@
                             Reset</button>
                         <a href="{{route('be.category')}}" class="btn btn-danger"><i
                                 class="fa fa-arrow-circle-left"></i> Back</a>
-                        
                     </div>
                 </form>
                 <!-- form end -->
